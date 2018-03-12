@@ -355,26 +355,29 @@ def applySingleTimeMutualInformation(infoTransfer, mode="subtract"):
         a += 1
     return infoTransfer
 
-def mutualWithXY(data):
+def mutualWithXY(data, noX=False):
+    #If noX = True, the mutual information of the X neurons is not recorded
     #This takes unprocessed data
-    def processData(data):
+    def processData(data, noX=False):
         xData = []
-        yData = []
         allData = []
         a = 0
         while a < len(data):
             b = 0
             while b < len(data[a][0]):
                 xData.append(data[a][0][b])
-                yData.append(data[a][2][b])
-                allData.append(list(data[a][0][b]) + list(data[a][2][b]) + list(data[a][1][b]))
+                if noX:
+                    allData.append(list(data[a][2][b]) + list(data[a][1][b]))
+                else:
+                    allData.append(list(data[a][0][b]) + list(data[a][2][b]) + list(data[a][1][b]))
                 b += 1
             a += 1
 
+        yData = loadfile('data/CS294Data/yData_testing1.pkl')
         allData = list(np.array(allData).T)
         return (xData, yData, allData)
 
-    (xData, yData, allData) = processData(data)
+    (xData, yData, allData) = processData(data, noX=noX)
     threads = []
     examplesToRunOn = 200
     a = 0
@@ -397,6 +400,46 @@ def mutualWithXY(data):
         yMI.append(t2.result)
         a += 1
     return (xMI, yMI)
+
+def layerMutualWithXY(data):
+    #This takes unprocessed data
+    def processData(data):
+        xData = []
+        hData = []
+        oData = []
+        a = 0
+        while a < len(data):
+            b = 0
+            while b < len(data[a][0]):
+                xData.append(data[a][0][b])
+                hData.append(data[a][1][b])
+                oData.append(data[a][2][b])
+                b += 1
+            a += 1
+
+        yData = loadfile('data/CS294Data/yData_testing1.pkl')
+        #Input, Hidden, Output, True Y Values.
+        return (xData, hData, oData, yData)
+
+    (xData, hData, oData, yData) = processData(data)
+    examplesToRunOn = 200
+    Thread_hxMI = VectorMIThread(hData[:examplesToRunOn], xData[:examplesToRunOn])
+    Thread_hyMI = VectorMIThread(hData[:examplesToRunOn], yData[:examplesToRunOn])
+    Thread_oxMI = VectorMIThread(oData[:examplesToRunOn], xData[:examplesToRunOn])
+    Thread_oyMI = VectorMIThread(oData[:examplesToRunOn], yData[:examplesToRunOn])
+    Thread_hxMI.start()
+    Thread_hyMI.start()
+    Thread_oxMI.start()
+    Thread_oyMI.start()
+    Thread_hxMI.join()
+    Thread_hyMI.join()
+    Thread_oxMI.join()
+    Thread_oyMI.join()
+    hxMI = Thread_hxMI.result
+    hyMI = Thread_hyMI.result
+    oxMI = Thread_oxMI.result
+    oyMI = Thread_oyMI.result
+    return (hxMI, hyMI, oxMI, oyMI)
 
 def saveRankings():
     infoTransfer = loadfile('data/CS294Data/transfer_k1000_6.pkl')
@@ -421,6 +464,18 @@ def saveTransferAndEntropy():
     output = open('data/CS294Data/entropy_k1000_4.pkl', 'wb')
     pickle.dump(entropyList, output)
     output.close()
+
+def saveTestingYData():
+    data = loadfile('data/CS294Data/testValues1.pkl')
+    yData = []
+    a = 0
+    while a < len(data):
+        b = 0
+        while b < len(data[a][0]):
+            yData.append(data[a][2][b])
+            b += 1
+        a += 1
+    savefile('data/CS294Data/yData_testing1.pkl', yData)
 
 #################################################
 ###                                           ###
@@ -494,8 +549,42 @@ def analyzeRanking(rankingType):
     plt.show()
     quit()
 
+def MutualInformationDuringTraining(individualNeurons=False):
+    numberOfEpochs = 1200
+    allxMIOutputs = []
+    allyMIOutputs = []
+    allxMIHidden = []
+    allyMIHidden = []
+    a = 0
+    while a < numberOfEpochs:
+        name = 'data/CS294Data/trainValues' + str(a) + '.pkl'
+        data = loadfile(name)
+        if individualNeurons:
+            (xMI, yMI) = mutualWithXY(data, noX=True)
+            xMIOutputs = xMI[:2]
+            yMIOutputs = yMI[:2]
+            xMIHidden = xMI[2:]
+            yMIHidden = yMI[2:]
+        else:
+            (hxMI, hyMI, oxMI, oyMI) = layerMutualWithXY(data)
+            xMIOutputs = [oxMI]
+            yMIOutputs = [oyMI]
+            xMIHidden = [hxMI]
+            yMIHidden = [hyMI]
+        allxMIOutputs = allxMIOutputs + xMIOutputs
+        allyMIOutputs = allyMIOutputs + yMIOutputs
+        allxMIHidden = allxMIHidden + xMIHidden
+        allyMIHidden = allyMIHidden + yMIHidden
+        a += 1
+    plt.scatter(allxMIHidden, allyMIHidden)
+    plt.scatter(allxMIOutputs, allyMIOutputs)
+    plt.show()
+
 #The following is a list of all interesting results to run.
 #analyzeRanking("complex")
 #analyzeRanking("simple")
 #plotStructure(cutOff=0.05)
 #plotXYMutualInfo()
+
+#The following will not work until the networks have been ran in all the training epoches.
+#MutualInformationDuringTraining(individualNeurons=False)

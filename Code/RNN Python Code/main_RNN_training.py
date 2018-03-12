@@ -1,5 +1,6 @@
 from rnn import *
 from parse_data import *
+import pickle
 
 logging.basicConfig(level=logging.INFO)
 
@@ -80,7 +81,7 @@ for air_id in airports:
                             learning_rate=0.005, learning_rate_decay=0.999,
                             n_epochs=n_epochs, activation='tanh')
 
-            model.fit(features_trn, targets_trn, validation_frequency=1000)
+            model.fit(features_trn, targets_trn, validation_frequency=1000, air_id=air_id)
             directory = out_path + "/airports/" + Experiment_KEY + "/"
             if not os.path.exists(directory):
                 os.makedirs(directory)
@@ -119,5 +120,7 @@ model = MetaRNN(n_in=n_in, n_hidden=HIDDEN_LAYERS, n_out=n_out,
                 n_epochs=n_epochs, activation='tanh')
 
 model.fit(features_trn, targets_trn, validation_frequency=1000)
+
+
 
 model.save(out_path + "/all_data/", Experiment_KEY + '_obj.save')

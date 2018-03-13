@@ -455,7 +455,7 @@ class MetaRNN(BaseEstimator):
                                     'lr: %f' % \
                                     (epoch, idx + 1, n_train, this_train_loss,
                                      self.learning_rate))
-            if (epoch % 20 == 0):
+            if (epoch % 10 == 0):
                 hlist = []
                 for i, one_seq in enumerate(X_train):
                     guess = self.predict(one_seq)

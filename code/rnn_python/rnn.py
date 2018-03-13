@@ -462,13 +462,17 @@ class MetaRNN(BaseEstimator):
                     [h1, y1] = self.getHY(one_seq)
                     hlist.append([one_seq, h1, y1])
                 jlist.append(hlist)
+                directory = 'data/train/' + str(air_id)
+                if not os.path.exists(directory):
+                    os.makedirs(directory)
+                self.save(directory, str(air_id) + '_' + str(epoch) + '_obj.save')
 
             self.learning_rate *= self.learning_rate_decay
 
         output = open('data/train/' + str(air_id) + '.pkl', 'wb')
         pickle.dump(jlist, output)
         output.close()
-        self.save('data/train/', str(air_id) + '_obj.save')
+
 
     def _get_params(self):
         return self.get_params()

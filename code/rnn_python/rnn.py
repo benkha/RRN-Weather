@@ -11,6 +11,7 @@ import time
 import os
 import datetime
 import six.moves.cPickle as pickle
+import pickle
 
 logger = logging.getLogger(__name__)
 
@@ -333,7 +334,7 @@ class MetaRNN(BaseEstimator):
         file.close()
 
     def fit(self, X_train, Y_train, X_test=None, Y_test=None,
-            validation_frequency=100):
+            validation_frequency=100, air_id=""):
         """ Fit model
 
         Pass in X_test, Y_test to compute test error and report during
@@ -418,6 +419,9 @@ class MetaRNN(BaseEstimator):
         logger.info('... training')
         epoch = 0
 
+        os.mkdir("data/" + str(air_id) + "/")
+        jlist = []
+
         while (epoch < self.n_epochs):
             epoch = epoch + 1
             for idx in range(n_train):
@@ -451,8 +455,19 @@ class MetaRNN(BaseEstimator):
                                     'lr: %f' % \
                                     (epoch, idx + 1, n_train, this_train_loss,
                                      self.learning_rate))
+            if (epoch % 20 == 0):
+                hlist = []
+                for i, one_seq in enumerate(X_train):
+                    guess = self.predict(one_seq)
+                    [h1, y1] = self.getHY(one_seq)
+                    hlist.append([one_seq, h1, y1])
+                jlist.append(hlist)
 
             self.learning_rate *= self.learning_rate_decay
+
+        output = open('data/train/' + str(air_id) + '.pkl', 'wb')
+        pickle.dump(hlist, output)
+        output.close()
 
     def _get_params(self):
         return self.get_params()

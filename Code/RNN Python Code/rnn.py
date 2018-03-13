@@ -454,14 +454,13 @@ class MetaRNN(BaseEstimator):
                                     'lr: %f' % \
                                     (epoch, idx + 1, n_train, this_train_loss,
                                      self.learning_rate))
-            hlist = []
-            for i, one_seq in enumerate(X_train):
-                guess = self.predict(one_seq)
-                [h1, y1] = self.getHY(one_seq)
-                hlist.append([one_seq, h1, y1])
-            jlist.append(hlist)
-
-
+            if (epoch % 10 == 0):
+                hlist = []
+                for i, one_seq in enumerate(X_train):
+                    guess = self.predict(one_seq)
+                    [h1, y1] = self.getHY(one_seq)
+                    hlist.append([one_seq, h1, y1])
+                jlist.append(hlist)
 
             self.learning_rate *= self.learning_rate_decay
 

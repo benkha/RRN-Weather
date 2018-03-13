@@ -419,7 +419,7 @@ class MetaRNN(BaseEstimator):
         logger.info('... training')
         epoch = 0
 
-        os.mkdir("data/" + str(air_id) + "/")
+
         jlist = []
 
         while (epoch < self.n_epochs):

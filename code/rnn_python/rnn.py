@@ -466,8 +466,9 @@ class MetaRNN(BaseEstimator):
             self.learning_rate *= self.learning_rate_decay
 
         output = open('data/train/' + str(air_id) + '.pkl', 'wb')
-        pickle.dump(hlist, output)
+        pickle.dump(jlist, output)
         output.close()
+        self.save('data/train/', str(air_id) + '_obj.save')
 
     def _get_params(self):
         return self.get_params()

@@ -1,0 +1,158 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University Assignment Title Page 
+% LaTeX Template
+% Version 1.0 (27/12/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title_Creation)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+% Instructions for using this template:
+% This title page is capable of being compiled as is. This is not useful for 
+% including it in another document. To do this, you have two options: 
+%
+% 1) Copy/paste everything between \begin{document} and \end{document} 
+% starting at \begin{titlepage} and paste this into another LaTeX file where you 
+% want your title page.
+% OR
+% 2) Remove everything outside the \begin{titlepage} and \end{titlepage} and 
+% move this file to the same directory as the LaTeX file you wish to add it to. 
+% Then add \input{./title_page_1.tex} to your LaTeX file where you want your
+% title page.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\title{Title page with logo}
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\begin{document}
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE Analyzing Information in RNNs}\\[0.5cm] % Name of your university/college
+% \textsc{\Large Major Heading}\\[0.5cm] % Major heading such as course name
+% \textsc{\large March 19, 2018}\\[0.5cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries CS 294-131 Research Project}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{0.5\textwidth}
+\begin{flushleft} \large
+\emph{Authors:}\\
+Stefan \textsc{Ivanovic} (Freshman) \\% Your name
+email: \\
+SID: \\
+\bigskip
+Benjamin \textsc{Kha} (Senior) \\% Your name
+email: \\
+SID: \\
+\bigskip
+Vignesh \textsc{Muruganantham} (Senior) \\% Your name
+muruvig@berkeley.edu\\
+SID: 25390657\\
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Professors:} \\
+Trevor \textsc{Darrell} \\% Supervisor's Name
+Dawn \textsc{Song} \\% Supervisor's Name
+\end{flushright}
+\end{minipage}\\[2cm]
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name
+
+% %----------------------------------------------------------------------------------------
+% %	DATE SECTION
+% %----------------------------------------------------------------------------------------
+
+% {\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+% \begin{center}
+% 	\includegraphics[scale=0.2]{cal_logo.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+% \end{center}
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+
+% \begin{abstract}
+% Your abstract.
+% \end{abstract}
+
+\section{Problem Definition \& Motivation}
+
+In this project, we are interested in the structures that might arise in neural networks from an information theoretic perspective. More specifically, we are interested in the case of possible structures involving fully recurrent neural networks and mutual information. Even more specifically, here are 5 questions we will research in exploring this area:
+
+\begin{enumerate}
+	\item Is there a general direction of information flow within the Neural Network?
+	\item Does the network naturally form structures similar to layers?
+	\item Does the concept of an Information Bottleneck apply in a useful way of fully recurrent neural networks?
+	\item Do features such as complexity and mutual information with Y give useful indicators of learning?
+	\item Do results from feed forward neural networks about the drift phase and diffusion phase also apply to fully recurrent neural networks?
+\end{enumerate}
+
+\section{Related Work \& Comparisons}
+% This needs to be changed/added to since this section is directly from the proposal. Probably need to find more sources as well.
+Two important pieces of related work are “Opening the black box of Deep Neural Networks via Information” by Ravid Schwartz-Ziv and Naftali Tishby, and “Information Theory for Analyzing Neural Networks” by B\aa rd S\o rng\aa rd.
+
+The results in “Opening the black box of Deep Neural Networks via Information” are perfectly sufficient for analyzing feed forward neural networks, however, there is no analysis of recurrent neural networks. “Information Theory for Analyzing Neural Networks” does analyze recurrent neural networks, however, it does not consider the topics we wish to analyze. These topics include fully recurrent neural networks, analyzing the development of structure in neural networks (this RNN has a very simple, non-flexible predetermined structure), the stages of learning in neural networks, and the concept of an information bottleneck. 
+
+\section{Approach}
+
+\section{Current Progress}
+
+\section{Timeline}
+\begin{enumerate}
+	\item Completing a working fully recurrent neural network for our problem. - 3/10
+	\item Completing a method of analyzing information transfer between neurons, and the mutual information between neurons (and groups of neurons) and X or Y. - 3/17
+	\item Creating a directed graph of the network, analyzing the graph to understand the structure of the network, and analyzing the direction of information transfer in the network. -3/20
+	\item Analyze the relationships between complexity, error, and mutual information with Y for our network. 3/28
+	\item Complete analyses of how the mutual information with X and Y change during training. Also analyze how the gradient mean and standard deviation behave during training. 4/4
+	\item Use our analyses to conclude how the concept of an information bottleneck applies to fully recurrent neural networks. Also use our analyses to conclude if the network’s training also splits into a drift phase and diffusion phase. If not, analyze if the networks training has any apparent phases (not necessarily these two). 4/11
+	\item Form conclusions about how all of these analyses relate to each other, what results seem the most important, and what would be interesting for other researchers to further look into. 4/18
+	\item Complete our paper with information on all important results. 4/23
+\end{enumerate}
+
+\section{References}
+
+\end{document}

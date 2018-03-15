@@ -133,11 +133,19 @@ In this project, we are interested in the structures that might arise in neural 
 
 \section{Related Work \& Comparisons}
 % This needs to be changed/added to since this section is directly from the proposal. Probably need to find more sources as well.
-Two important pieces of related work are “Opening the black box of Deep Neural Networks via Information” by Ravid Schwartz-Ziv and Naftali Tishby, and “Information Theory for Analyzing Neural Networks” by B\aa rd S\o rng\aa rd.
+Two important pieces of related work are “Opening the black box of Deep Neural
+Networks via Information” by Ravid Schwartz-Ziv and Naftali Tishby
+\cite{DBLP:journals/corr/Shwartz-ZivT17}, and “Information Theory for Analyzing
+Neural Networks” by B\aa rd S\o rng\aa rd \cite{ntnu}.
 
 The results in “Opening the black box of Deep Neural Networks via Information” are perfectly sufficient for analyzing feed forward neural networks, however, there is no analysis of recurrent neural networks. “Information Theory for Analyzing Neural Networks” does analyze recurrent neural networks, however, it does not consider the topics we wish to analyze. These topics include fully recurrent neural networks, analyzing the development of structure in neural networks (this RNN has a very simple, non-flexible predetermined structure), the stages of learning in neural networks, and the concept of an information bottleneck. 
 
 \section{Approach}
+We started by using an existing implementation of an RNN used to predict future
+temperatures for a certain airport given the temperature in the past. Thus we
+have a continuous input and output space for this problem. This was taken from
+\cite{weather}. This luckily came with data files containing the results of
+their tests given as a .pkl file.
 
 \section{Current Progress}
 
@@ -154,5 +162,7 @@ The results in “Opening the black box of Deep Neural Networks via Information�
 \end{enumerate}
 
 \section{References}
+\bibliographystyle{unsrt}
+\bibliography{references}
 
 \end{document}

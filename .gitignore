@@ -1,0 +1,7 @@
+*.DS_Store
+*.pyc
+*.aux
+*.log
+*.synctex.gz
+auto/
+.ipynb_checkpoints/

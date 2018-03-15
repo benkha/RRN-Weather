@@ -7,3 +7,5 @@ __pycache__/
 *.synctex.gz
 auto/
 .ipynb_checkpoints/
+*.bbl
+*.blg

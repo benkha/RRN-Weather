@@ -1,6 +1,7 @@
 *.DS_Store
 *.pyc
 *.cpython-36.pyc
+__pycache__/
 *.aux
 *.log
 *.synctex.gz

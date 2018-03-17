@@ -121,7 +121,14 @@ Dawn \textsc{Song} \\% Supervisor's Name
 
 \section{Problem Definition \& Motivation}
 
-In this project, we are interested in the structures that might arise in neural networks from an information theoretic perspective. More specifically, we are interested in the case of possible structures involving fully recurrent neural networks and mutual information. Even more specifically, here are 5 questions we will research in exploring this area:
+In this project, we are interested in the structures that might arise in neural
+networks from an information theoretic perspective. More specifically, we are
+interested in the case of possible structures involving fully recurrent neural
+networks and mutual information. Our specific subdomain is within the context of
+using recurrent neural networks for time series prediction tasks in a continuous
+input and output space. There is a great deal of work done in this area showing
+that recurrent neural networks perform well for this task, for example in
+\cite{rnn_time_series} and \cite{rnn_stocks}. Even more specifically, here are 5 questions we will research in exploring this area:
 
 \begin{enumerate}
 	\item Is there a general direction of information flow within the Neural Network?
@@ -136,7 +143,8 @@ In this project, we are interested in the structures that might arise in neural 
 Two important pieces of related work are “Opening the black box of Deep Neural
 Networks via Information” by Ravid Schwartz-Ziv and Naftali Tishby
 \cite{black_box}, and “Information Theory for Analyzing
-Neural Networks” by B\aa rd S\o rng\aa rd \cite{ntnu}.
+Neural Networks” by B\aa rd S\o rng\aa rd \cite{ntnu}. These papers present some
+foundational work on using information theory in deep learning research.
 
 The results in “Opening the black box of Deep Neural Networks via Information” are perfectly sufficient for analyzing feed forward neural networks, however, there is no analysis of recurrent neural networks. “Information Theory for Analyzing Neural Networks” does analyze recurrent neural networks, however, it does not consider the topics we wish to analyze. These topics include fully recurrent neural networks, analyzing the development of structure in neural networks (this RNN has a very simple, non-flexible predetermined structure), the stages of learning in neural networks, and the concept of an information bottleneck. 
 

@@ -406,7 +406,7 @@ class MetaRNN(BaseEstimator):
         # cost, but in the same time updates the parameter of the
         # model based on the rules defined in `updates`
         train_model = theano.function(inputs=[index, l_r, mom],
-                                      outputs=(cost, gparams),
+                                      outputs=[cost, gparams],
                                       updates=updates,
                                       givens={
                                           self.x: train_set_x[index],

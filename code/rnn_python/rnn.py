@@ -419,6 +419,8 @@ class MetaRNN(BaseEstimator):
         logger.info('... training')
         epoch = 0
 
+        plist = []
+
         while (epoch < self.n_epochs):
             epoch = epoch + 1
             for idx in range(n_train):
@@ -454,19 +456,20 @@ class MetaRNN(BaseEstimator):
                                      self.learning_rate))
 
             if (epoch % 10 == 0):
-                hlist = []
-                for i, one_seq in enumerate(X_train):
-                    guess = self.predict(one_seq)
-                    [h1, y1] = self.getHY(one_seq)
-                    hlist.append([one_seq, h1, y1])
+                # hlist = []
+                # for i, one_seq in enumerate(X_train):
+                #     guess = self.predict(one_seq)
+                #     [h1, y1] = self.getHY(one_seq)
+                #     hlist.append([one_seq, h1, y1])
+                plist.append(self.get_params())
 
 
 
             self.learning_rate *= self.learning_rate_decay
 
         #Stefan:
-        output = open('data/CS294Data/train/' + str(air_id)  + '.pkl', 'wb')
-        pickle.dump(hlist, output)
+        output = open('data/CS294Data/train_weights/' + str(air_id) + '.pkl', 'wb')
+        pickle.dump(plist, output)
         output.close()
         #:Stefan
 

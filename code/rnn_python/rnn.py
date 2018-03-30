@@ -406,7 +406,7 @@ class MetaRNN(BaseEstimator):
         # cost, but in the same time updates the parameter of the
         # model based on the rules defined in `updates`
         train_model = theano.function(inputs=[index, l_r, mom],
-                                      outputs=cost,
+                                      outputs=(cost, gparams),
                                       updates=updates,
                                       givens={
                                           self.x: train_set_x[index],
@@ -427,7 +427,7 @@ class MetaRNN(BaseEstimator):
                 effective_momentum = self.final_momentum \
                                if epoch > self.momentum_switchover \
                                else self.initial_momentum
-                example_cost = train_model(idx, self.learning_rate,
+                example_cost, grads = train_model(idx, self.learning_rate,
                                            effective_momentum)
 
                 # iteration number (how many weight updates have we made?)
@@ -461,7 +461,7 @@ class MetaRNN(BaseEstimator):
                 #     guess = self.predict(one_seq)
                 #     [h1, y1] = self.getHY(one_seq)
                 #     hlist.append([one_seq, h1, y1])
-                plist.append(self.get_params())
+                plist.append(grads)
 
 
 

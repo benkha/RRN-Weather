@@ -427,9 +427,9 @@ class MetaRNN(BaseEstimator):
                 effective_momentum = self.final_momentum \
                                if epoch > self.momentum_switchover \
                                else self.initial_momentum
-                example_cost, grad1, grad2, grad3 = train_model(idx, self.learning_rate,
+                example_cost, grad1, grad2 = train_model(idx, self.learning_rate,
                                            effective_momentum)
-                grads = [grad1, grad2, grad3]
+                grads = [grad1, grad2]
 
                 # iteration number (how many weight updates have we made?)
                 # epoch is 1-based, index is 0 based

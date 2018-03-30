@@ -77,50 +77,52 @@ for air_id in airports:
         # train RNN models for each airport data alone
         #
         if not os.path.isfile(out_path+"/airports/"+Experiment_KEY + '_' + str(air_id) + '_obj.save'):
-            model = MetaRNN(n_in=n_in, n_hidden=HIDDEN_LAYERS, n_out=n_out,
-                            learning_rate=0.005, learning_rate_decay=0.999,
-                            n_epochs=n_epochs, activation='tanh')
+            if str(air_id) == 'CON':
+                print('STARTING CON')
+                model = MetaRNN(n_in=n_in, n_hidden=HIDDEN_LAYERS, n_out=n_out,
+                                learning_rate=0.005, learning_rate_decay=0.999,
+                                n_epochs=n_epochs, activation='tanh')
 
-            model.fit(features_trn, targets_trn, validation_frequency=1000, air_id=air_id)
-            directory = out_path + "/airports/" + Experiment_KEY + "/"
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-            model.save(directory, str(air_id) + '_obj.save')
+                model.fit(features_trn, targets_trn, validation_frequency=1000, air_id=air_id)
+                directory = out_path + "/airports/" + Experiment_KEY + "/"
+                if not os.path.exists(directory):
+                    os.makedirs(directory)
+                model.save(directory, str(air_id) + '_obj.save')
 
 #
 # train RNN model for each cluster alone
 #
-for cluster_id in cluster_subset:
-    print("cluster no:" + str(cluster_id))
-    model = MetaRNN(n_in=n_in, n_hidden=HIDDEN_LAYERS, n_out=n_out,
-                    learning_rate=0.001, learning_rate_decay=0.999,
-                    n_epochs=n_epochs, activation='tanh')
-    features_trn = airports_clusters_data[cluster_id]['features_trn']
-    targets_trn = airports_clusters_data[cluster_id]['targets_trn']
-    features_tst = airports_clusters_data[cluster_id]['features_tst']
-    targets_tst = airports_clusters_data[cluster_id]['targets_tst']
-
-    model.fit(features_trn, targets_trn, validation_frequency=1000)
-    directory = out_path + "/clusters/"+Experiment_KEY+"/"
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    model.save(directory, 'cluster_' + str(cluster_id) + '_obj.save')
-
-
+# for cluster_id in cluster_subset:
+#     print("cluster no:" + str(cluster_id))
+#     model = MetaRNN(n_in=n_in, n_hidden=HIDDEN_LAYERS, n_out=n_out,
+#                     learning_rate=0.001, learning_rate_decay=0.999,
+#                     n_epochs=n_epochs, activation='tanh')
+#     features_trn = airports_clusters_data[cluster_id]['features_trn']
+#     targets_trn = airports_clusters_data[cluster_id]['targets_trn']
+#     features_tst = airports_clusters_data[cluster_id]['features_tst']
+#     targets_tst = airports_clusters_data[cluster_id]['targets_tst']
 #
-# train RNN model for the whole data
+#     model.fit(features_trn, targets_trn, validation_frequency=1000)
+#     directory = out_path + "/clusters/"+Experiment_KEY+"/"
+#     if not os.path.exists(directory):
+#         os.makedirs(directory)
+#     model.save(directory, 'cluster_' + str(cluster_id) + '_obj.save')
 #
-features_trn = airports_all_data['features_trn']
-targets_trn = airports_all_data['targets_trn']
-features_tst = airports_all_data['features_tst']
-targets_tst = airports_all_data['targets_tst']
-
-model = MetaRNN(n_in=n_in, n_hidden=HIDDEN_LAYERS, n_out=n_out,
-                learning_rate=0.001, learning_rate_decay=0.999,
-                n_epochs=n_epochs, activation='tanh')
-
-model.fit(features_trn, targets_trn, validation_frequency=1000)
-
-
-
-model.save(out_path + "/all_data/", Experiment_KEY + '_obj.save')
+#
+# #
+# # train RNN model for the whole data
+# #
+# features_trn = airports_all_data['features_trn']
+# targets_trn = airports_all_data['targets_trn']
+# features_tst = airports_all_data['features_tst']
+# targets_tst = airports_all_data['targets_tst']
+#
+# model = MetaRNN(n_in=n_in, n_hidden=HIDDEN_LAYERS, n_out=n_out,
+#                 learning_rate=0.001, learning_rate_decay=0.999,
+#                 n_epochs=n_epochs, activation='tanh')
+#
+# model.fit(features_trn, targets_trn, validation_frequency=1000)
+#
+#
+#
+# model.save(out_path + "/all_data/", Experiment_KEY + '_obj.save')

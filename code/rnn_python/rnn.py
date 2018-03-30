@@ -468,7 +468,7 @@ class MetaRNN(BaseEstimator):
             self.learning_rate *= self.learning_rate_decay
 
         #Stefan:
-        output = open('data/CS294Data/train_weights/' + str(air_id) + '.pkl', 'wb')
+        output = open('data/train_weights/' + str(air_id) + '.pkl', 'wb')
         pickle.dump(plist, output)
         output.close()
         #:Stefan

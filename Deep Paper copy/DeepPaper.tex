@@ -1,11 +1,10 @@
 \documentclass{article}
 \usepackage{graphicx}
-% \graphicspath{{RNN_Images/}}
 
 \begin{document}
-\title{Applying Information Theory to a Fully Recurrent Neural Network (Research Project)}
+\title{Applying Information Theory to a Fully Recurrent Neural Network}
 \author{Stefan Ivanovic, Vignesh Muruganantham, Benjamin Kha}
-\date{April 15 2018}
+\date{April 23 2018}
 \maketitle{}
 
 \section{Abstract}
@@ -130,18 +129,20 @@ Another piece of future work is applying the ranking algorithm to larger network
 
 It would also be interesting to perform a more rigorous analysis of learning indicators. For example, one could analyze how the learning indicates behave under various situations where the network is not set up correctly (set up in a way in which it fill successfully learn). This could be used to see if learning indicators provide useful diagnostics for "debugging" neural networks. I believe the next step for learning indicators is showing how the network is learning (and revealing flaws in the learning) rather than just showing if the network is learning. 
 
-\section{References} 
+\nocite{ntnu}
+\nocite{black_box}
+\nocite{weather}
+\nocite{disentangling_representations}
+\nocite{info_bottleneck}
+\nocite{rnn_time_series}
+\nocite{rnn_stocks}
+\nocite{speech}
+\nocite{text}
+\nocite{mutual_info}
+\nocite{content_transfer}
+\nocite{social_media}
 
-[Ben and Vignesh, add this please] 
-
-
- 
- 
-
-  
-  
-
- 
- 
+\bibliographystyle{unsrt}
+\bibliography{references}
 
 \end{document}

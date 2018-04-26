@@ -72,6 +72,17 @@ ggplot(dff, aes(x=degree, fill=type)) +
 ```
 
 ```{r}
+ggplot(dff, aes(x=degree, fill=type)) +
+  geom_histogram(aes(y=..density..), position='dodge', bins=10) +
+  xlab("Degree") +
+  ylab("Percentage of Neurons") +
+  ggtitle("Neuron Degree Histograms") +
+  facet_wrap(~threshold, scale='free') +
+  theme(legend.title=element_blank()) 
+```
+
+
+```{r}
 df$threshold <- 'Threshold: 0.006'
 df1$threshold <- 'Threshold: 0.03'
 df2$threshold <- 'Threshold: 0.04'
@@ -92,6 +103,17 @@ ggplot(s_df) +
   ggtitle('Output Degree vs. Input Degree') +
   theme_minimal()
 ```
+
+```{r}
+ggplot(s_df) +
+  geom_point(aes(x=input, y=output), color='cadetblue') +
+  facet_wrap(~threshold, scale='free') +
+  xlab('Input Degree') +
+  ylab('Output Degree') +
+  ggtitle('Output Degree vs. Input Degree') +
+  theme_minimal()
+```
+
 
 ```{r}
 df <- read.csv('rank.csv', stringsAsFactors = FALSE)
@@ -124,6 +146,16 @@ ggplot(new_df, aes(x=rank, fill=input)) +
   ylab("Number of Neurons") +
   ggtitle("Neuron Rank Histograms") +
   facet_wrap(~threshold, scale='free', nrow=2) +
+  theme(legend.title=element_blank()) 
+```
+
+```{r}
+ggplot(new_df, aes(x=rank, fill=input)) +
+  geom_histogram(position='dodge', bins=10) +
+  xlab("Rank") +
+  ylab("Number of Neurons") +
+  ggtitle("Neuron Rank Histograms") +
+  facet_wrap(~threshold, scale='free') +
   theme(legend.title=element_blank()) 
 ```
 

@@ -602,6 +602,18 @@ ggplot(dff, aes(x=degree, fill=type)) +
 ![](project_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 ``` r
+ggplot(dff, aes(x=degree, fill=type)) +
+  geom_histogram(aes(y=..density..), position='dodge', bins=10) +
+  xlab("Degree") +
+  ylab("Percentage of Neurons") +
+  ggtitle("Neuron Degree Histograms") +
+  facet_wrap(~threshold, scale='free') +
+  theme(legend.title=element_blank()) 
+```
+
+![](project_files/figure-markdown_github/unnamed-chunk-8-1.png)
+
+``` r
 df$threshold <- 'Threshold: 0.006'
 df1$threshold <- 'Threshold: 0.03'
 df2$threshold <- 'Threshold: 0.04'
@@ -622,7 +634,19 @@ ggplot(s_df) +
   theme_minimal()
 ```
 
-![](project_files/figure-markdown_github/unnamed-chunk-10-1.png)
+![](project_files/figure-markdown_github/unnamed-chunk-11-1.png)
+
+``` r
+ggplot(s_df) +
+  geom_point(aes(x=input, y=output), color='cadetblue') +
+  facet_wrap(~threshold, scale='free') +
+  xlab('Input Degree') +
+  ylab('Output Degree') +
+  ggtitle('Output Degree vs. Input Degree') +
+  theme_minimal()
+```
+
+![](project_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
 ``` r
 df <- read.csv('rank.csv', stringsAsFactors = FALSE)
@@ -791,4 +815,16 @@ ggplot(new_df, aes(x=rank, fill=input)) +
   theme(legend.title=element_blank()) 
 ```
 
-![](project_files/figure-markdown_github/unnamed-chunk-14-1.png)
+![](project_files/figure-markdown_github/unnamed-chunk-16-1.png)
+
+``` r
+ggplot(new_df, aes(x=rank, fill=input)) +
+  geom_histogram(position='dodge', bins=10) +
+  xlab("Rank") +
+  ylab("Number of Neurons") +
+  ggtitle("Neuron Rank Histograms") +
+  facet_wrap(~threshold, scale='free') +
+  theme(legend.title=element_blank()) 
+```
+
+![](project_files/figure-markdown_github/unnamed-chunk-17-1.png)

@@ -1,0 +1,129 @@
+---
+title: "CS294"
+author: "Benjamin Kha"
+date: "April 26, 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(reshape2)
+library(ggthemes)
+```
+
+
+```{r}
+df <- read.csv('test.csv')
+names(df) <- c('Input Degree', 'Output Degree')
+df1 <- read.csv('test1.csv')
+names(df1) <- c('Input Degree', 'Output Degree')
+df2 <- read.csv('test2.csv')
+names(df2) <- c('Input Degree', 'Output Degree')
+```
+
+```{r}
+new_df <- data.frame(degree=df$'Input Degree')
+new_df$'type' <- 'Input Degree'
+new_df_2 <- data.frame(degree=df$'Output Degree')
+new_df_2$'type' <- 'Output Degree'
+new_df <- rbind(new_df, new_df_2)
+new_df$threshold <- 'Threshold: 0.006'
+new_df
+```
+
+```{r}
+new_df1 <- data.frame(degree=df1$'Input Degree')
+new_df1$'type' <- 'Input Degree'
+new_df1_2 <- data.frame(degree=df1$'Output Degree')
+new_df1_2$'type' <- 'Output Degree'
+new_df1 <- rbind(new_df1, new_df1_2)
+new_df1$threshold <- 'Threshold: 0.04'
+new_df1
+```
+
+```{r}
+new_df2 <- data.frame(degree=df2$'Input Degree')
+new_df2$'type' <- 'Input Degree'
+new_df2_2 <- data.frame(degree=df2$'Output Degree')
+new_df2_2$'type' <- 'Output Degree'
+new_df2 <- rbind(new_df2, new_df2_2)
+new_df2$threshold <- 'Threshold: 0.03'
+new_df2
+```
+
+```{r}
+dff <- rbind(new_df, new_df1, new_df2)
+dff
+```
+
+
+```{r}
+ggplot(dff, aes(x=degree, fill=type)) +
+  geom_histogram(aes(y=..density..), position='dodge', bins=10) +
+  xlab("Degree") +
+  ylab("Percentage of Neurons") +
+  ggtitle("Neuron Degree Histograms") +
+  facet_wrap(~threshold, scale='free', nrow=2) +
+  theme(legend.title=element_blank()) 
+```
+
+```{r}
+df$threshold <- 'Threshold: 0.006'
+df1$threshold <- 'Threshold: 0.03'
+df2$threshold <- 'Threshold: 0.04'
+s_df <- rbind(df, df1, df2)
+```
+
+```{r}
+names(s_df) <- c('input', 'output', 'threshold')
+```
+
+
+```{r}
+ggplot(s_df) +
+  geom_point(aes(x=input, y=output), color='cadetblue') +
+  facet_wrap(~threshold, nrow=2, scale='free') +
+  xlab('Input Degree') +
+  ylab('Output Degree') +
+  ggtitle('Output Degree vs. Input Degree') +
+  theme_minimal()
+```
+
+```{r}
+df <- read.csv('rank.csv', stringsAsFactors = FALSE)
+df$threshold <- 'Threshold: 0.006'
+names(df)[1] <- 'rank'
+df1 <- read.csv('rank1.csv', stringsAsFactors = FALSE)
+df1$threshold <- 'Threshold: 0.04'
+names(df1)[1] <- 'rank'
+df2 <- read.csv('rank2.csv', stringsAsFactors = FALSE)
+df2$threshold <- 'Threshold: 0.03'
+names(df2)[1] <- 'rank'
+```
+
+```{r}
+new_df <- rbind(df, df1, df2)
+new_df
+```
+
+```{r}
+new_df[new_df$input == 'input','input'] <- 'Inputs'
+new_df[new_df$input == 'hidden','input'] <- 'Hidden Neurons'
+new_df[new_df$input == 'output','input'] <- 'Outputs'
+```
+
+
+```{r}
+ggplot(new_df, aes(x=rank, fill=input)) +
+  geom_histogram(position='dodge', bins=10) +
+  xlab("Rank") +
+  ylab("Number of Neurons") +
+  ggtitle("Neuron Rank Histograms") +
+  facet_wrap(~threshold, scale='free', nrow=2) +
+  theme(legend.title=element_blank()) 
+```
+
